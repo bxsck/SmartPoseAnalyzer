@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Teerapat Surasin">
+    <title>Analyzer • FrameFIT</title>
+     <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='image/logo.jpg') }}" />
+    <!-- Core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="cover.css" rel="stylesheet">
+    <!-- Custom template -->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+      
+        }
+      
+      }
+    </style>
+
+    <!-- Custom template 
+    <link rel="stylesheet" type="text/css" href="css/analyze.css">  -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analyze.css') }}">  
+
+   </head>
+   <body class="text-center" >
+    
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">FrameFIT</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link active" href="#">Analyzer</a>
+        <a class="nav-link" href="upload.html">Reset</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+        
+    <h1 class="cover-heading">Smart Pose Analyzer</h1><br>
+    <h4>Your Result</h2><br>
+    
+    <br>
+    
+        
+    <div class="alert alert-success" role="alert">
+        <p>{{ value }}</p>
+    </div>
+    
+    <br><br>
+   
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Project for <a href="">Cloud Architecture</a>, by P'Frame <a href="https://www.instagram.com/jirapat_frame">IG</a> <a href="https://www.facebook.com/runeslayer.frame">FB</a> .</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

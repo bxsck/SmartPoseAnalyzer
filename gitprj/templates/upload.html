@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Teerapat Surasin">
+    <title>Analyzer • FrameFIT</title>
+     <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='image/logo.jpg') }}"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="cover.css" rel="stylesheet">
+    <!-- Custom template -->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Select CSS
+    <link rel="stylesheet" type="text/css" href="css/analyze.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analyze.css') }}">  
+
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<!--NAVBAR-->
+<header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">FrameFIT</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link active" href="#">Analyzer</a>
+        
+      </nav>
+    </div>
+</header>
+
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">Smart Pose Analyzer</h1><br>
+    <!-- Select -->
+    <h5>Select Your Pose and Upload Video</h2><br>
+      
+<!--START FORM-->
+<form action="/upload" id="upload" name="form_upload" enctype="multipart/form-data" method="post">
+  
+<div class="custom-select" style="width:200px;">
+  <select name="posture">
+    <option value="0">Select Pose:</option>
+    <option value="DumbellCurl">DumbellCurl</option>
+    <option value="DumbellLateralRaise">DumbellLateralRaise</option>
+    <option value="DumbellOverheadPress">DumbellOverheadPress</option>
+    </select>                                
+</div><br><br>
+<div class="alert alert-danger" role="alert">
+  Beware to select the right pose !<br>
+  Selected the wrong pose may affect an error result
+</div>
+   <!-- Upload Section-->
+  <input type="file" name="file">
+  <!-- Dropdown Script -->
+    <script>
+    var x, i, j, selElmnt, a, b, c;
+    /*look for any elements with the class "custom-select":*/
+    x = document.getElementsByClassName("custom-select");
+    for (i = 0; i < x.length; i++) {
+      selElmnt = x[i].getElementsByTagName("select")[0];
+      /*for each element, create a new DIV that will act as the selected item:*/
+      a = document.createElement("DIV");
+      a.setAttribute("class", "select-selected");
+      a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+      x[i].appendChild(a);
+      /*for each element, create a new DIV that will contain the option list:*/
+      b = document.createElement("DIV");
+      b.setAttribute("class", "select-items select-hide");
+      for (j = 1; j < selElmnt.length; j++) {
+        /*for each option in the original select element,
+        create a new DIV that will act as an option item:*/
+        c = document.createElement("DIV");
+        c.innerHTML = selElmnt.options[j].innerHTML;
+        c.addEventListener("click", function(e) {
+            /*when an item is clicked, update the original select box,
+            and the selected item:*/
+            var y, i, k, s, h;
+            s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+            h = this.parentNode.previousSibling;
+            for (i = 0; i < s.length; i++) {
+              if (s.options[i].innerHTML == this.innerHTML) {
+                s.selectedIndex = i;
+                h.innerHTML = this.innerHTML;
+                y = this.parentNode.getElementsByClassName("same-as-selected");
+                for (k = 0; k < y.length; k++) {
+                  y[k].removeAttribute("class");
+                }
+                this.setAttribute("class", "same-as-selected");
+                break;
+              }
+            }
+            h.click();
+        });
+        b.appendChild(c);
+      }
+      x[i].appendChild(b);
+      a.addEventListener("click", function(e) {
+          /*when the select box is clicked, close any other select boxes,
+          and open/close the current select box:*/
+          e.stopPropagation();
+          closeAllSelect(this);
+          this.nextSibling.classList.toggle("select-hide");
+          this.classList.toggle("select-arrow-active");
+        });
+    }
+    function closeAllSelect(elmnt) {
+      /*a function that will close all select boxes in the document,
+      except the current select box:*/
+      var x, y, i, arrNo = [];
+      x = document.getElementsByClassName("select-items");
+      y = document.getElementsByClassName("select-selected");
+      for (i = 0; i < y.length; i++) {
+        if (elmnt == y[i]) {
+          arrNo.push(i)
+        } else {
+          y[i].classList.remove("select-arrow-active");
+        }
+      }
+      for (i = 0; i < x.length; i++) {
+        if (arrNo.indexOf(i)) {
+          x[i].classList.add("select-hide");
+        }
+      }
+    }
+    /*if the user clicks anywhere outside the select box,
+    then close all select boxes:*/
+    document.addEventListener("click", closeAllSelect);
+    $(function(){
+      $('#button').click(function(){
+          var filedata = new form-data($('#upload')[0]);
+            $.ajax({
+                data: filedata,
+                type : 'POST',
+                url : '/upload',
+                success: function(d){
+                  alert(d)
+                },
+                error: function(d){
+                  alert(d)
+                },
+            });
+          });
+      });
+    </script>
+
+    <button onclick="show()" class="btn btn-lg btn-secondary" id ="button" type="submit" name="but">Analyze!</button> <br><br>
+  </form>
+  <br>
+  <div id= "load">
+    <p class="lead">Loading...</p>
+  <div class="spinner-border text-light" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  </div>
+
+  <script> 
+    window.onload = function() {
+   document.getElementById('load').style.display = 'none';
+    };
+    function show(){
+    document.getElementById("load").style.display ="block";
+    } 
+    </script> 
+    
+</main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Project for <a href="">Cloud Architecture</a>, by P'Frame <a href="https://www.instagram.com/jirapat_frame">IG</a> <a href="https://www.facebook.com/runeslayer.frame">FB</a> .</p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
