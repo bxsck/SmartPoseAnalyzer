@@ -1,0 +1,19 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -t 300 -b :$PORT main:app 
+runtime_config:
+  python_version: 3.7
+
+
+
+
+
+env_variables:
+    # Replace user, password, database, and instance connection name with the values obtained
+    # when configuring your Cloud SQL instance.
+    #SQLALCHEMY_DATABASE_URI: >-
+     # mysql+pymysql://wario:003002001@/3fdata?unix_socket=/cloudsql/myphpadmin2
+    CLOUD_STORAGE_BUCKET: 'webapp-262307.appspot.com'
+
+    
+
